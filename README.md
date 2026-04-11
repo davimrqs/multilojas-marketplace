@@ -1,3 +1,4 @@
+
 # 🛒 MultiLojas - Vitrine Digital Marketplace
 
 Plataforma de vitrine digital que permite a múltiplos empreendedores gerenciarem suas próprias lojas virtuais, com busca unificada, carrinho por loja e cálculo de frete.
@@ -24,7 +25,9 @@ Plataforma de vitrine digital que permite a múltiplos empreendedores gerenciare
 
 python -m venv venv
 # Windows:
-.\venv\Scripts\activate
+TESTE
+    ```bash
+    .\venv\Scripts\activate
 # Linux/Mac:
 source venv/bin/activate
 
