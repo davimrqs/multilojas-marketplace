@@ -9,6 +9,16 @@ Plataforma de vitrine digital que permite a múltiplos empreendedores gerenciare
 - **Frontend:** React (Vite), Axios, TailwindCSS
 - **Banco de Dados:** PostgreSQL (Produção) / SQLite (Desenvolvimento)
 
+## 📥 Inicialização (Para quem acabou de baixar o projeto)
+
+Siga este passo a passo para rodar o projeto localmente após o download:
+
+### 1. Clonar o Repositório
+   ```bash
+   git clone [https://github.com/davimrqs/multilojas-marketplace.git](https://github.com/davimrqs/multilojas-marketplace.git)
+
+   cd multilojas-marketplace
+   
 ## 🛠️ Configuração do Ambiente (Setup)
 
 ### 1. Pré-requisitos
