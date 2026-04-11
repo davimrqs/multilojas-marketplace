@@ -39,6 +39,7 @@ Siga este passo a passo para rodar o projeto localmente após o download:
     ```bash
     cd frontend
     npm install
+    npm install axios react-router-dom tailwindcss postcss autoprefixer @tailwindcss/vite
     npm run dev
     ```
    
@@ -80,6 +81,7 @@ pip install django djangorestframework django-cors-headers djangorestframework-s
 2. Instale as dependências:
     ```bash
     npm install
+    npm install axios react-router-dom @tailwindcss/vite @vitejs/plugin-react
 3. Inicie o ambiente de desenvolvimento:
     ```bash
     npm run dev
