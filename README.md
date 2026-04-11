@@ -18,6 +18,29 @@ Siga este passo a passo para rodar o projeto localmente após o download:
    git clone [https://github.com/davimrqs/multilojas-marketplace.git](https://github.com/davimrqs/multilojas-marketplace.git)
 
    cd multilojas-marketplace
+   ```
+### 2. Configurar o Backend (Django)
+   ```bash
+   cd backend
+   python -m venv venv
+   ```
+   Ativar o ambiente:
+    Windows: .\venv\Scripts\activate
+    Linux/Mac: source venv/bin/activate
+
+   Instalar dependências e rodar o banco:
+    ```bash
+    pip install -r requirements.txt
+    python manage.py migrate
+    python manage.py runserver
+    ```
+
+### 3. Configurar o Frontend (React)
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
    
 ## 🛠️ Configuração do Ambiente (Setup)
 
