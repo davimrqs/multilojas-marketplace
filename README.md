@@ -1,5 +1,3 @@
-# multilojas-marketplace
-
 # 🛒 MultiLojas - Vitrine Digital Marketplace
 
 Plataforma de vitrine digital que permite a múltiplos empreendedores gerenciarem suas próprias lojas virtuais, com busca unificada, carrinho por loja e cálculo de frete.
