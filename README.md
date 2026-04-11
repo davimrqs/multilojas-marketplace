@@ -5,9 +5,9 @@ Plataforma de vitrine digital que permite a múltiplos empreendedores gerenciare
 
 ## 🚀 Tecnologias Utilizadas
 
-- [cite_start]**Backend:** Python 3.x, Django, Django REST Framework (DRF) [cite: 5, 24]
-- [cite_start]**Frontend:** React (Vite), Axios, TailwindCSS [cite: 5, 17, 22]
-- [cite_start]**Banco de Dados:** PostgreSQL (Produção) / SQLite (Desenvolvimento) [cite: 5, 28]
+- **Backend:** Python 3.x, Django, Django REST Framework (DRF)
+- **Frontend:** React (Vite), Axios, TailwindCSS
+- **Banco de Dados:** PostgreSQL (Produção) / SQLite (Desenvolvimento)
 
 ## 🛠️ Configuração do Ambiente (Setup)
 
@@ -33,7 +33,7 @@ source venv/bin/activate
 
 3. Instale as dependências:
 
-pip install django djangorestframework django-cors-headers
+pip install django djangorestframework django-cors-headers djangorestframework-simplejwt bcrypt
 
 4. Execute as migrações e inicie o servidor:
     ```bash
