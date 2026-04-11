@@ -23,13 +23,16 @@ Plataforma de vitrine digital que permite a múltiplos empreendedores gerenciare
 
 2. Crie e ative o ambiente virtual:
 
-python -m venv venv
+   ```bash
+   python -m venv venv
 # Windows:
-TESTE
-    ```bash
-    .\venv\Scripts\activate
+
+   ```bash
+   .\venv\Scripts\activate
 # Linux/Mac:
-source venv/bin/activate
+
+   ```bash
+   source venv/bin/activate
 
 3. Instale as dependências:
 
