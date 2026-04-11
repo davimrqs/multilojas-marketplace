@@ -22,34 +22,31 @@ Plataforma de vitrine digital que permite a múltiplos empreendedores gerenciare
    cd backend
 
 2. Crie e ative o ambiente virtual:
-
    ```bash
    python -m venv venv
+   
 # Windows:
+.\venv\Scripts\activate
 
-   ```bash
-   .\venv\Scripts\activate
 # Linux/Mac:
-
-   ```bash
-   source venv/bin/activate
+source venv/bin/activate
 
 3. Instale as dependências:
 
 pip install django djangorestframework django-cors-headers
 
 4. Execute as migrações e inicie o servidor:
-
-python manage.py migrate
-python manage.py runserver
+    ```bash
+    python manage.py migrate
+    python manage.py runserver
 
 ### 3. Frontend (React)
-Em um novo terminal, acesse a pasta do frontend:
-
-cd frontend
-Instale as dependências:
-
-npm install
-Inicie o ambiente de desenvolvimento:
-
-npm run dev
+1. Em um novo terminal, acesse a pasta do frontend:
+    ```bash
+    cd frontend
+2. Instale as dependências:
+    ```bash
+    npm install
+3. Inicie o ambiente de desenvolvimento:
+    ```bash
+    npm run dev
