@@ -26,3 +26,15 @@ class Comprador(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Produto(models.Model):
+    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, related_name='produtos')
+    nome = models.CharField(max_length=200)
+    descricao = models.TextField()
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    estoque = models.IntegerField(default=0)
+    imagem = models.ImageField(upload_to='produtos/', null=True, blank=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nome

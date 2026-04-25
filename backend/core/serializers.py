@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Vendedor, Comprador
+from .models import User, Vendedor, Comprador, Produto
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -33,3 +33,10 @@ class CompradorSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**user_data, is_comprador=True)
         comprador = Comprador.objects.create(user=user, **validated_data)
         return comprador
+    
+class ProdutoSerializer(serializers.ModelSerializer):
+    vendedor_nome = serializers.ReadOnlyField(source='vendedor.nome_loja')
+
+    class Meta:
+        model = Produto
+        fields = ['id', 'vendedor', 'vendedor_nome', 'nome', 'descricao', 'preco', 'estoque', 'imagem', 'criado_em']
