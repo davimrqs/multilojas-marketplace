@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import CadastroVendedor from './pages/CadastroVendedor';
 import CadastroComprador from './pages/CadastroComprador'; // Importação nova
+import CadastroProduto from './pages/CadastroProduto';
 import Home from './pages/Home';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/cadastro-vendedor" element={<CadastroVendedor />} />
           <Route path="/cadastro-cliente" element={<CadastroComprador />} />
+          <Route path="/novo-produto" element={<CadastroProduto />} />
           <Route path="/" element={<Home />} />
           <Route path="/" element={
             <div className="text-center mt-20">
