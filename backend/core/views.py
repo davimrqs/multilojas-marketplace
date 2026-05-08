@@ -1,6 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Vendedor, Comprador, Produto
 from .serializers import VendedorSerializer, CompradorSerializer, ProdutoSerializer
 
@@ -26,3 +27,8 @@ class MeusProdutosView(generics.ListAPIView):
     def get_queryset(self):
         # Retorna apenas os produtos onde o dono é o usuário que está logado
         return Produto.objects.filter(vendedor__user=self.request.user)
+    
+class ProdutoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Produto.objects.all()
+    serializer_class = ProdutoSerializer
+    permission_classes = [IsAuthenticated] # Apenas logados podem mexer aqui
