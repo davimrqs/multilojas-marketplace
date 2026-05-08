@@ -18,7 +18,14 @@ class CadastroCompradorView(generics.CreateAPIView):
 class ProdutoListCreateView(generics.ListCreateAPIView):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
-    permission_classes = [AllowAny] # Depois vamos restringir para apenas vendedores logados
+    # Apenas usuários logados podem cadastrar
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        # Aqui acontece a mágica:
+        # Buscamos o Vendedor vinculado ao User logado (self.request.user)
+        vendedor = Vendedor.objects.get(user=self.request.user)
+        serializer.save(vendedor=vendedor)
 
 class MeusProdutosView(generics.ListAPIView):
     serializer_class = ProdutoSerializer
