@@ -1,5 +1,10 @@
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from .models import User, Vendedor, Comprador, Produto
+
+def validate_username(self, value):
+    if User.objects.filter(username=value).exists():
+        raise serializers.ValidationError("Este nome de usuário já está sendo usado. Escolha outro.")
+    return value
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -9,26 +14,33 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'telefone']
 
 class VendedorSerializer(serializers.ModelSerializer):
-    # Campos extras para criar o usuário junto com o vendedor
+    # Definimos os campos de acesso como campos avulsos (virtuais)
     username = serializers.CharField(write_only=True)
     password = serializers.CharField(write_only=True)
+    email = serializers.EmailField(write_only=True)
 
     class Meta:
         model = Vendedor
-        fields = ['id', 'nome_loja', 'cnpj', 'username', 'password']
+        # Liste EXATAMENTE os campos que estão no seu formulário React
+        fields = ['username', 'password', 'email', 'nome_loja', 'chave_pix', 'cep_origem']
 
     def create(self, validated_data):
-        # 1. Extrai os dados de login
+        # 1. Removemos os dados de login antes de criar o Vendedor
         username = validated_data.pop('username')
         password = validated_data.pop('password')
-        
-        # 2. Cria o Usuário no sistema de autenticação
-        user = User.objects.create_user(username=username, password=password)
-        
-        # 3. Cria o Vendedor vinculado a esse novo usuário
+        email = validated_data.pop('email')
+
+        # 2. Criamos o Usuário primeiro
+        user = User.objects.create_user(
+            username=username, 
+            password=password, 
+            email=email
+        )
+
+        # 3. Criamos o Vendedor vinculado ao User criado
         vendedor = Vendedor.objects.create(user=user, **validated_data)
         return vendedor
-
+    
 class CompradorSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 

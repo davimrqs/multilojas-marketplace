@@ -6,17 +6,15 @@ class User(AbstractUser):
     is_vendedor = models.BooleanField(default=False)
     is_comprador = models.BooleanField(default=False)
     telefone = models.CharField(max_length=15, blank=True, null=True)
-
 class Vendedor(models.Model):
-    verbose_name = "Vendedor"
-    verbose_name_plural = "Vendedores"
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nome_loja = models.CharField(max_length=100)
     descricao_loja = models.TextField(blank=True)
-    chave_pix = models.CharField(max_length=100)
-    # Endereço para cálculo de frete
-    cep_origem = models.CharField(max_length=8)
-
+    # Adicionando blank=True e null=True para não travar o cadastro
+    chave_pix = models.CharField(max_length=100, blank=True, null=True)
+    cep_origem = models.CharField(max_length=8, blank=True, null=True)
+    cnpj = models.CharField(max_length=14, blank=True, null=True)
+    
     def __str__(self):
         return self.nome_loja
 
