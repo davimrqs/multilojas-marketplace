@@ -8,6 +8,8 @@ class User(AbstractUser):
     telefone = models.CharField(max_length=15, blank=True, null=True)
 
 class Vendedor(models.Model):
+    verbose_name = "Vendedor"
+    verbose_name_plural = "Vendedores"
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nome_loja = models.CharField(max_length=100)
     descricao_loja = models.TextField(blank=True)
@@ -19,6 +21,8 @@ class Vendedor(models.Model):
         return self.nome_loja
 
 class Comprador(models.Model):
+    verbose_name = "Comprador"
+    verbose_name_plural = "Compradores"
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     cpf = models.CharField(max_length=11, unique=True)
     endereco_completo = models.TextField()
@@ -28,6 +32,8 @@ class Comprador(models.Model):
         return self.user.username
 
 class Produto(models.Model):
+    verbose_name = "Produto"
+    verbose_name_plural = "Produtos"
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, related_name='produtos')
     nome = models.CharField(max_length=200)
     descricao = models.TextField()
