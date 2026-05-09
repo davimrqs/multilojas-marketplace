@@ -1,7 +1,8 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.exceptions import ValidationError
 from .models import Vendedor, Comprador, Produto
 from .serializers import VendedorSerializer, CompradorSerializer, ProdutoSerializer
 
@@ -22,10 +23,13 @@ class ProdutoListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        # Aqui acontece a mágica:
-        # Buscamos o Vendedor vinculado ao User logado (self.request.user)
-        vendedor = Vendedor.objects.get(user=self.request.user)
-        serializer.save(vendedor=vendedor)
+        try:
+            # Tenta achar o vendedor do usuário logado
+            vendedor = Vendedor.objects.get(user=self.request.user)
+            serializer.save(vendedor=vendedor)
+        except Vendedor.DoesNotExist:
+            # Se não achar, envia um erro amigável para o React
+            raise ValidationError({"detail": "Você precisa ter um perfil de vendedor para anunciar produtos."})
 
 class MeusProdutosView(generics.ListAPIView):
     serializer_class = ProdutoSerializer
