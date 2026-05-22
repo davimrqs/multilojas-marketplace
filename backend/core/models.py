@@ -42,3 +42,24 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+    
+
+class Carrinho(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='carrinho')
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total_price(self):
+        # Calcula o valor total somando (preço * quantidade) de cada item
+        return sum(item.product.preco * item.quantity for item in self.items.all())
+
+    def __str__(self):
+        return f"Carrinho de {self.user.username}"
+
+class CarrinhoItem(models.Model):
+    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity}x {self.product.nome} no carrinho de {self.carrinho.user.username}"
