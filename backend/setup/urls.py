@@ -33,6 +33,8 @@ urlpatterns = [
     
     # ESTA LINHA CONECTA O APP CORE AO PROJETO
     path('api/', include('core.urls')), 
+
+    path('api/cart/', include('cart.urls')),
 ]
 
 if settings.DEBUG:
