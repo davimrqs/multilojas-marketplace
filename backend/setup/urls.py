@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include # Certifique-se de que o 'include' está aqui
 from django.conf import settings
 from django.conf.urls.static import static
+from core.views import PublicLojaProdutosView, PublicProdutoDetailView
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -35,6 +36,9 @@ urlpatterns = [
     path('api/', include('core.urls')), 
 
     path('api/orders/', include('orders.urls')),
+
+    path('api/loja/<int:vendedor_id>/produtos/', PublicLojaProdutosView.as_view(), name='public-loja-produtos'),
+    path('api/produto/<int:produto_id>/', PublicProdutoDetailView.as_view(), name='public-produto-detalhe'),
 ]
 
 if settings.DEBUG:

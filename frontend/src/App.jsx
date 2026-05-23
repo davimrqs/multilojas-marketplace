@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+
 // Imports das suas páginas
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -9,6 +10,8 @@ import CadastroComprador from './pages/CadastroComprador';
 import CadastroProduto from './pages/CadastroProduto';
 import DashboardVendedor from './pages/DashboardVendedor'; 
 import DetalhesProduto from './pages/DetalhesProduto';
+import PaginaLoja from './pages/StorePage';
+import PaginaProduto from './pages/ProductPage';
 
 function App() {
   const [logado, setLogado] = useState(false);
@@ -60,6 +63,19 @@ function App() {
         </Routes>
       </div>
     </Router>
+  );
+}
+
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Adicione estas duas linhas dentro de suas rotas */}
+        <Route path="/loja/:id" element={<StorePage />} />
+        <Route path="/produto/:id" element={<ProductPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
