@@ -9,6 +9,7 @@ import CadastroComprador from './pages/CadastroComprador';
 import CadastroProduto from './pages/CadastroProduto';
 import DashboardVendedor from './pages/DashboardVendedor'; 
 import DetalhesProduto from './pages/DetalhesProduto';
+import Carrinho from './pages/Carrinho'; // Importando o arquivo novo
 
 function App() {
   const [logado, setLogado] = useState(false);
@@ -19,9 +20,10 @@ function App() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.setItem('access', ''); // Limpa o token
+    localStorage.setItem('access', ''); 
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
+    localStorage.removeItem('carrinho'); // Limpa o carrinho ao deslogar
     setLogado(false);
     window.location.href = '/'; 
   };
@@ -29,8 +31,14 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
+        {/* Barra de Navegação Global */}
         <nav className="bg-white shadow-sm p-4 flex gap-6 justify-center items-center">
           <Link to="/" className="text-gray-600 hover:text-blue-600 font-medium">Home</Link>
+          
+          {/* Link para a página do Carrinho */}
+          <Link to="/carrinho" className="text-amber-600 font-medium flex items-center gap-1">
+            🛒 Carrinho
+          </Link>
           
           {!logado ? (
             <>
@@ -49,6 +57,7 @@ function App() {
           )}
         </nav>
 
+        {/* Gerenciamento de Rotas do Marketplace */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -57,6 +66,7 @@ function App() {
           <Route path="/novo-produto" element={<CadastroProduto />} />
           <Route path="/dashboard" element={<DashboardVendedor />} />
           <Route path="/produto/:id" element={<DetalhesProduto />} />
+          <Route path="/carrinho" element={<Carrinho />} /> 
         </Routes>
       </div>
     </Router>
