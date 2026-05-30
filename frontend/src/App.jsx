@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react'; // O useEffect foi removido para evitar o erro do linter
 
 // Imports das suas páginas
+import Loja from './pages/Loja';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import CadastroVendedor from './pages/CadastroVendedor';
@@ -9,23 +10,23 @@ import CadastroComprador from './pages/CadastroComprador';
 import CadastroProduto from './pages/CadastroProduto';
 import DashboardVendedor from './pages/DashboardVendedor'; 
 import DetalhesProduto from './pages/DetalhesProduto';
-import Carrinho from './pages/Carrinho'; // Importando o arquivo novo
+import Carrinho from "./pages/Carrinho"; 
 
 function App() {
-  const [logado, setLogado] = useState(false);
-
-  useEffect(() => {
+  // O estado agora é inicializado de forma direta/preguiçosa (Lazy Initial State).
+  // Ele lê o localStorage no primeiríssimo milissegundo. O SonarLint/ESLint aprova
+  // totalmente este padrão porque não causa atualizações síncronas em cascata.
+  const [logado, setLogado] = useState(() => {
     const token = localStorage.getItem('access');
-    setLogado(!!token);
-  }, []);
+    return !!token; // Retorna true se houver token, false se for nulo
+  });
 
   const handleLogout = () => {
-    localStorage.setItem('access', ''); 
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
-    localStorage.removeItem('carrinho'); // Limpa o carrinho ao deslogar
+    localStorage.removeItem('carrinho');
     setLogado(false);
-    window.location.href = '/'; 
+    window.location.href = '/';
   };
 
   return (
@@ -34,6 +35,7 @@ function App() {
         {/* Barra de Navegação Global */}
         <nav className="bg-white shadow-sm p-4 flex gap-6 justify-center items-center">
           <Link to="/" className="text-gray-600 hover:text-blue-600 font-medium">Home</Link>
+          <Link to="/loja" className="text-gray-600 hover:text-blue-600 font-medium">Loja</Link>
           
           {/* Link para a página do Carrinho */}
           <Link to="/carrinho" className="text-amber-600 font-medium flex items-center gap-1">
@@ -60,6 +62,7 @@ function App() {
         {/* Gerenciamento de Rotas do Marketplace */}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/loja" element={<Loja />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro-vendedor" element={<CadastroVendedor />} />
           <Route path="/cadastro-cliente" element={<CadastroComprador />} />
