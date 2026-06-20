@@ -34,7 +34,12 @@ export default function CadastroComprador() {
       navigate('/login');
     } catch (error) {
       console.error(error);
-      alert('Erro no cadastro. Verifique se o CPF ou Usuário já existem.');
+      if (error.response && error.response.data) {
+        // Mostra o motivo exato enviado pelo Django (ex: CPF duplicado, senha fraca, etc.)
+        alert(`Erro no Django (400): ${JSON.stringify(error.response.data)}`);
+      } else {
+        alert('Erro no cadastro. Verifique a conexão com o servidor.');
+      }
     }
   };
 

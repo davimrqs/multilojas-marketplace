@@ -28,6 +28,7 @@ export default function DashboardVendedor() {
         setMeusProdutos(meusProdutos.filter(p => p.id !== id));
         alert("Produto removido!");
       } catch (err) {
+        console.error("Erro ao excluir produto", err);
         alert("Erro ao excluir.");
       }
     }
