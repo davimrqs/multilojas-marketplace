@@ -1,11 +1,30 @@
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 # Importações dos seus modelos e serializers
 from .models import Vendedor, Comprador, Produto, Pedido 
 from .serializers import VendedorSerializer, CompradorSerializer, ProdutoSerializer, PedidoSerializer 
 
+class ObterPerfilView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        perfil = None
+        tipo = None
+
+        if Vendedor.objects.filter(user=user).exists():
+            perfil = VendedorSerializer(Vendedor.objects.get(user=user)).data
+            tipo = 'vendedor'
+        elif Comprador.objects.filter(user=user).exists():
+            perfil = CompradorSerializer(Comprador.objects.get(user=user)).data
+            tipo = 'comprador'
+
+        return Response({"tipo": tipo, "perfil": perfil})
 class CadastroVendedorView(generics.CreateAPIView):
     queryset = Vendedor.objects.all()
     serializer_class = VendedorSerializer

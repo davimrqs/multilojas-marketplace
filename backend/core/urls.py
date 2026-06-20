@@ -2,11 +2,12 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import PedidoCreateView # Verifique se essa view existe
 
+# CORREÇÃO: Removi o "PedidoCreateView" inexistente e mantive o "CriarPedidoView"
 from .views import (
     CadastroVendedorView, 
-    CadastroCompradorView, 
+    CadastroCompradorView,
+    ObterPerfilView, 
     ProdutoListCreateView, 
     MeusProdutosView, 
     ProdutoDetailView,
@@ -21,6 +22,6 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('meus-produtos/', MeusProdutosView.as_view(), name='meus_produtos'),
     path('produtos/<int:pk>/', ProdutoDetailView.as_view(), name='produto_detail'),
-    path('pedidos/', CriarPedidoView.as_view(), name='pedido-create'),
+    path('meu-perfil/', ObterPerfilView.as_view(), name='obter-perfil'),
     path('pedidos/', CriarPedidoView.as_view(), name='pedido-create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
